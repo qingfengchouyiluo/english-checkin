@@ -38,12 +38,13 @@
       .sheet::after {
         content: "张梓萱的英语世界";
         position: absolute;
-        right: -18mm;
-        bottom: 16mm;
+        right: 10mm;
+        bottom: 17mm;
         color: rgba(25, 124, 122, 0.08);
-        font-size: 34pt;
+        font-size: 28pt;
         font-weight: 900;
-        transform: rotate(-8deg);
+        transform: rotate(-4deg);
+        transform-origin: right bottom;
         white-space: nowrap;
       }
 
@@ -62,14 +63,31 @@
       }
 
       .badge {
-        display: inline-block;
-        margin-bottom: 3mm;
-        border: 1px solid rgba(25, 124, 122, 0.25);
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.76);
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 2.5mm;
+        margin-bottom: 4mm;
+        border: 1.4px solid rgba(25, 124, 122, 0.32);
+        border-radius: 4mm;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(255, 244, 219, 0.9)),
+          #fff;
         color: var(--teal);
-        padding: 2mm 4mm;
-        font-weight: 800;
+        padding: 3mm 5.5mm 3mm 4.5mm;
+        font-size: 17pt;
+        font-weight: 900;
+        line-height: 1.15;
+        box-shadow: 0 2mm 5mm rgba(25, 124, 122, 0.12);
+      }
+
+      .badge::before {
+        content: "";
+        width: 1.8mm;
+        height: 10mm;
+        border-radius: 999px;
+        background: linear-gradient(180deg, var(--teal), var(--gold));
+        flex: 0 0 auto;
       }
 
       h1 {
@@ -157,6 +175,24 @@
         line-height: 1.55;
       }
 
+      .photo-card {
+        width: 58mm;
+        aspect-ratio: 16 / 9;
+        margin-top: 9mm;
+        border: 1px solid rgba(25, 124, 122, 0.22);
+        border-radius: 7px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 2mm 6mm rgba(36, 49, 59, 0.14);
+      }
+
+      .photo-card img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
       @media print {
         body { background: #fff; }
         .sheet { width: auto; min-height: auto; margin: 0; }
@@ -219,6 +255,10 @@
             <p>当天很累时，只听读 3 个词、1 个句子，也可以打保底版。关键是不中断。</p>
           </div>
         </section>
+
+        <figure class="photo-card">
+          <img src="assets/zixuan-cover.jpg" alt="张梓萱的英语学习照片">
+        </figure>
       </div>
     </main>
   </body>
