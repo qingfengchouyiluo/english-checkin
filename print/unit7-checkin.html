@@ -150,35 +150,37 @@
 
       .note-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 5mm;
-        margin-top: 6mm;
+        grid-template-columns: repeat(2, 78mm);
+        justify-content: center;
+        gap: 4mm;
+        margin-top: 5mm;
       }
 
       .note {
-        min-height: 28mm;
+        min-height: 22mm;
         border: 1px solid var(--line);
         border-radius: 6px;
-        padding: 4mm;
+        padding: 3mm;
         background: rgba(255, 255, 255, 0.78);
       }
 
       .note h2 {
-        margin: 0 0 2mm;
-        font-size: 12pt;
+        margin: 0 0 1.5mm;
+        font-size: 11pt;
       }
 
       .note p {
         margin: 0;
         color: var(--muted);
-        font-size: 9.5pt;
-        line-height: 1.55;
+        font-size: 8.5pt;
+        line-height: 1.45;
       }
 
       .photo-card {
-        width: 58mm;
+        width: 92mm;
+        max-width: 100%;
         aspect-ratio: 16 / 9;
-        margin-top: 9mm;
+        margin: 8mm 0 0;
         border: 1px solid rgba(25, 124, 122, 0.22);
         border-radius: 7px;
         overflow: hidden;

@@ -77,6 +77,9 @@ def build_page(css: str, data_script: str, app_script: str) -> str:
           <div id="quizList"></div>
           <button class="complete-button" id="completeButton" type="button">我今天完成了</button>
           <p class="complete-note" id="completeNote"></p>
+          <figure class="web-photo-card">
+            <img src="print/assets/zixuan-cover.jpg" alt="张梓萱的英语学习照片">
+          </figure>
         </aside>
       </section>
     </main>
