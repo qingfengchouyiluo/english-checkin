@@ -1,0 +1,456 @@
+:root {
+  --ink: #25313b;
+  --muted: #60717f;
+  --paper: #fffdf7;
+  --surface: #ffffff;
+  --line: #d9e1df;
+  --teal: #197c7a;
+  --teal-soft: #dff3ef;
+  --gold: #f4b942;
+  --coral: #e96c4c;
+  --blue: #3f6fb5;
+  --shadow: 0 18px 40px rgba(37, 49, 59, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  color: var(--ink);
+  background:
+    linear-gradient(115deg, rgba(255, 253, 247, 0.92) 0 24%, rgba(232, 246, 241, 0.84) 24% 48%, rgba(255, 245, 221, 0.9) 48% 72%, rgba(242, 248, 255, 0.9) 72%),
+    radial-gradient(circle at 12% 10%, rgba(244, 185, 66, 0.22), transparent 30%),
+    linear-gradient(135deg, #f8f3e7 0%, #e9f4f2 45%, #f9efe7 100%);
+  font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+}
+
+body::before {
+  content: "张梓萱的英语世界";
+  position: fixed;
+  right: -34px;
+  bottom: 28px;
+  z-index: -1;
+  color: rgba(25, 124, 122, 0.08);
+  font-size: clamp(48px, 11vw, 160px);
+  font-weight: 900;
+  letter-spacing: 0;
+  transform: rotate(-7deg);
+  white-space: nowrap;
+}
+
+button {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 40px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 280px);
+  gap: 20px;
+  align-items: end;
+  min-height: 180px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.brand-banner {
+  display: inline-flex;
+  margin: 0 0 14px;
+  border: 1px solid rgba(25, 124, 122, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--teal);
+  padding: 8px 14px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 10px;
+  font-size: clamp(38px, 7vw, 74px);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-size: 28px;
+  letter-spacing: 0;
+}
+
+h3 {
+  margin-bottom: 12px;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+
+.hero-copy,
+.goal,
+.practice-note,
+.complete-note {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.fallback-panel {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0 20px;
+  border: 1px solid rgba(233, 108, 76, 0.45);
+  border-radius: 8px;
+  background: #fff0ea;
+  padding: 14px;
+}
+
+.fallback-panel strong {
+  color: #87381f;
+}
+
+.fallback-panel span {
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.fallback-panel button {
+  justify-self: start;
+  border: 0;
+  border-radius: 8px;
+  background: var(--coral);
+  color: #ffffff;
+  cursor: pointer;
+  padding: 10px 12px;
+}
+
+.progress-panel,
+.lesson-card,
+.practice-card {
+  border: 1px solid rgba(217, 225, 223, 0.9);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: var(--shadow);
+}
+
+.progress-panel {
+  padding: 18px;
+}
+
+.progress-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.unit-picker-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.unit-picker {
+  width: 100%;
+  margin-bottom: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--ink);
+  padding: 10px 12px;
+}
+
+.progress-panel strong {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 34px;
+}
+
+.progress-track {
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e8ece9;
+}
+
+.progress-track span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--teal), var(--gold));
+}
+
+.day-tabs {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+  margin: 24px 0;
+}
+
+.day-tab {
+  min-height: 52px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.day-tab.active {
+  border-color: var(--teal);
+  color: #ffffff;
+  background: var(--teal);
+}
+
+.day-tab.done::after {
+  content: "完成";
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: inherit;
+}
+
+.today-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 380px);
+  gap: 20px;
+}
+
+.lesson-card,
+.practice-card {
+  padding: 22px;
+}
+
+.lesson-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: start;
+}
+
+.ghost-button {
+  min-width: 88px;
+  border: 1px solid var(--teal);
+  border-radius: 8px;
+  color: var(--teal);
+  background: var(--teal-soft);
+  cursor: pointer;
+  padding: 10px 12px;
+}
+
+.routine {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin: 16px 0 24px;
+}
+
+.routine-step {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  background: var(--paper);
+}
+
+.routine-step strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--teal);
+}
+
+.routine-step span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.block {
+  margin-top: 20px;
+}
+
+.chip-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.chip {
+  border-radius: 999px;
+  background: #edf1f5;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.review-audio {
+  min-height: 70px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 10px;
+  text-align: left;
+}
+
+.review-audio strong {
+  display: block;
+  font-size: 15px;
+}
+
+.review-audio span {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.item-list {
+  display: grid;
+  gap: 10px;
+}
+
+.learn-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 8px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #ffffff;
+}
+
+.learn-item strong {
+  display: block;
+  font-size: 18px;
+}
+
+.learn-item span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.audio-button {
+  border: 0;
+  border-radius: 8px;
+  background: var(--blue);
+  color: white;
+  cursor: pointer;
+  padding: 10px 12px;
+}
+
+.audio-button.slow {
+  background: var(--coral);
+}
+
+.quiz-item {
+  margin-bottom: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: var(--paper);
+}
+
+.quiz-prompt {
+  margin-bottom: 10px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.choice {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+  padding: 10px;
+  text-align: left;
+}
+
+.choice.correct {
+  border-color: var(--teal);
+  background: var(--teal-soft);
+}
+
+.choice.wrong {
+  border-color: var(--coral);
+  background: #fff0ea;
+}
+
+.complete-button {
+  width: 100%;
+  border: 0;
+  border-radius: 8px;
+  background: var(--teal);
+  color: #ffffff;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-weight: 700;
+}
+
+.complete-note {
+  margin: 12px 0 0;
+  text-align: center;
+}
+
+@media (max-width: 860px) {
+  .hero,
+  .today-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .day-tabs {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .routine {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .chip-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .app-shell {
+    width: min(100% - 20px, 1120px);
+    padding-top: 18px;
+  }
+
+  .day-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .learn-item {
+    grid-template-columns: 1fr;
+  }
+
+  .chip-row {
+    grid-template-columns: 1fr;
+  }
+}

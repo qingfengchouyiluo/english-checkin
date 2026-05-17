@@ -1,0 +1,2073 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>English Check-in</title>
+    <style>
+:root {
+  --ink: #25313b;
+  --muted: #60717f;
+  --paper: #fffdf7;
+  --surface: #ffffff;
+  --line: #d9e1df;
+  --teal: #197c7a;
+  --teal-soft: #dff3ef;
+  --gold: #f4b942;
+  --coral: #e96c4c;
+  --blue: #3f6fb5;
+  --shadow: 0 18px 40px rgba(37, 49, 59, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  color: var(--ink);
+  background:
+    linear-gradient(115deg, rgba(255, 253, 247, 0.92) 0 24%, rgba(232, 246, 241, 0.84) 24% 48%, rgba(255, 245, 221, 0.9) 48% 72%, rgba(242, 248, 255, 0.9) 72%),
+    radial-gradient(circle at 12% 10%, rgba(244, 185, 66, 0.22), transparent 30%),
+    linear-gradient(135deg, #f8f3e7 0%, #e9f4f2 45%, #f9efe7 100%);
+  font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+}
+
+body::before {
+  content: "张梓萱的英语世界";
+  position: fixed;
+  right: -34px;
+  bottom: 28px;
+  z-index: -1;
+  color: rgba(25, 124, 122, 0.08);
+  font-size: clamp(48px, 11vw, 160px);
+  font-weight: 900;
+  letter-spacing: 0;
+  transform: rotate(-7deg);
+  white-space: nowrap;
+}
+
+button {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 40px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 280px);
+  gap: 20px;
+  align-items: end;
+  min-height: 180px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.brand-banner {
+  display: inline-flex;
+  margin: 0 0 14px;
+  border: 1px solid rgba(25, 124, 122, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--teal);
+  padding: 8px 14px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 10px;
+  font-size: clamp(38px, 7vw, 74px);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-size: 28px;
+  letter-spacing: 0;
+}
+
+h3 {
+  margin-bottom: 12px;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+
+.hero-copy,
+.goal,
+.practice-note,
+.complete-note {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.fallback-panel {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0 20px;
+  border: 1px solid rgba(233, 108, 76, 0.45);
+  border-radius: 8px;
+  background: #fff0ea;
+  padding: 14px;
+}
+
+.fallback-panel strong {
+  color: #87381f;
+}
+
+.fallback-panel span {
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.fallback-panel button {
+  justify-self: start;
+  border: 0;
+  border-radius: 8px;
+  background: var(--coral);
+  color: #ffffff;
+  cursor: pointer;
+  padding: 10px 12px;
+}
+
+.progress-panel,
+.lesson-card,
+.practice-card {
+  border: 1px solid rgba(217, 225, 223, 0.9);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: var(--shadow);
+}
+
+.progress-panel {
+  padding: 18px;
+}
+
+.progress-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.unit-picker-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.unit-picker {
+  width: 100%;
+  margin-bottom: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--ink);
+  padding: 10px 12px;
+}
+
+.progress-panel strong {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 34px;
+}
+
+.progress-track {
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e8ece9;
+}
+
+.progress-track span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--teal), var(--gold));
+}
+
+.day-tabs {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+  margin: 24px 0;
+}
+
+.day-tab {
+  min-height: 52px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.day-tab.active {
+  border-color: var(--teal);
+  color: #ffffff;
+  background: var(--teal);
+}
+
+.day-tab.done::after {
+  content: "完成";
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: inherit;
+}
+
+.today-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 380px);
+  gap: 20px;
+}
+
+.lesson-card,
+.practice-card {
+  padding: 22px;
+}
+
+.lesson-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: start;
+}
+
+.ghost-button {
+  min-width: 88px;
+  border: 1px solid var(--teal);
+  border-radius: 8px;
+  color: var(--teal);
+  background: var(--teal-soft);
+  cursor: pointer;
+  padding: 10px 12px;
+}
+
+.routine {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin: 16px 0 24px;
+}
+
+.routine-step {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  background: var(--paper);
+}
+
+.routine-step strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--teal);
+}
+
+.routine-step span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.block {
+  margin-top: 20px;
+}
+
+.chip-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.chip {
+  border-radius: 999px;
+  background: #edf1f5;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.review-audio {
+  min-height: 70px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 10px;
+  text-align: left;
+}
+
+.review-audio strong {
+  display: block;
+  font-size: 15px;
+}
+
+.review-audio span {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.item-list {
+  display: grid;
+  gap: 10px;
+}
+
+.learn-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 8px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #ffffff;
+}
+
+.learn-item strong {
+  display: block;
+  font-size: 18px;
+}
+
+.learn-item span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.audio-button {
+  border: 0;
+  border-radius: 8px;
+  background: var(--blue);
+  color: white;
+  cursor: pointer;
+  padding: 10px 12px;
+}
+
+.audio-button.slow {
+  background: var(--coral);
+}
+
+.quiz-item {
+  margin-bottom: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: var(--paper);
+}
+
+.quiz-prompt {
+  margin-bottom: 10px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.choice {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+  padding: 10px;
+  text-align: left;
+}
+
+.choice.correct {
+  border-color: var(--teal);
+  background: var(--teal-soft);
+}
+
+.choice.wrong {
+  border-color: var(--coral);
+  background: #fff0ea;
+}
+
+.complete-button {
+  width: 100%;
+  border: 0;
+  border-radius: 8px;
+  background: var(--teal);
+  color: #ffffff;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-weight: 700;
+}
+
+.complete-note {
+  margin: 12px 0 0;
+  text-align: center;
+}
+
+@media (max-width: 860px) {
+  .hero,
+  .today-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .day-tabs {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .routine {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .chip-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .app-shell {
+    width: min(100% - 20px, 1120px);
+    padding-top: 18px;
+  }
+
+  .day-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .learn-item {
+    grid-template-columns: 1fr;
+  }
+
+  .chip-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <div>
+          <p class="brand-banner">张梓萱的英语世界</p>
+          <p class="eyebrow" id="unitMeta">Grade 7</p>
+          <h1 id="unitTitle">English Check-in</h1>
+          <p class="hero-copy" id="unitCopy">每天 25 分钟：听词、跟读、做 3 道小题，然后自己打卡。</p>
+        </div>
+        <div class="progress-panel" aria-label="学习进度">
+          <label class="unit-picker-label" for="unitPicker">选择内容</label>
+          <select id="unitPicker" class="unit-picker"></select>
+          <span class="progress-label">已完成</span>
+          <strong id="doneCount">0 / 7</strong>
+          <div class="progress-track"><span id="progressBar"></span></div>
+        </div>
+      </header>
+
+      <section class="day-tabs" id="dayTabs" aria-label="选择学习天数"></section>
+
+      <section class="today-layout">
+        <article class="lesson-card">
+          <div class="lesson-heading">
+            <div>
+              <p class="eyebrow" id="lessonMeta">Day 1</p>
+              <h2 id="lessonTitle">加载中</h2>
+            </div>
+            <button class="ghost-button" id="fallbackButton" type="button">保底版</button>
+          </div>
+
+          <p class="goal" id="lessonGoal"></p>
+          <div class="fallback-panel" id="fallbackPanel" hidden></div>
+
+          <div class="routine" id="routine"></div>
+
+          <section class="block" id="reviewBlock" hidden>
+            <h3>旧词复习</h3>
+            <div class="chip-row" id="reviewList"></div>
+          </section>
+
+          <section class="block">
+            <h3>今日词/短语</h3>
+            <div class="item-list" id="termList"></div>
+          </section>
+
+          <section class="block">
+            <h3>跟读句子</h3>
+            <div class="item-list" id="sentenceList"></div>
+          </section>
+        </article>
+
+        <aside class="practice-card">
+          <h2>小练习</h2>
+          <p class="practice-note">先自己选，再看反馈。做错也没关系。</p>
+          <div id="quizList"></div>
+          <button class="complete-button" id="completeButton" type="button">我今天完成了</button>
+          <p class="complete-note" id="completeNote"></p>
+        </aside>
+      </section>
+    </main>
+
+    <script>
+      window.ENGLISH_CHECKIN_AUDIO_PREFIX = "web/";
+window.CHECKIN_STATIC = {
+  "manifest": {
+    "defaultUnit": "unit7",
+    "units": [
+      {
+        "id": "unit7",
+        "label": "Unit 7",
+        "title": "A Day to Remember",
+        "status": "ready",
+        "data": "data/units/unit7.json"
+      }
+    ]
+  },
+  "units": {
+    "unit7": {
+      "id": "unit7",
+      "unit": "Unit 7",
+      "title": "A Day to Remember",
+      "level": "Grade 7, Book 2",
+      "duration": "14 days",
+      "dailyMinutes": 25,
+      "voice": {
+        "name": "en-US-JennyNeural",
+        "rate": "-15%"
+      },
+      "routine": [
+        {
+          "minutes": 3,
+          "label": "旧词复习",
+          "detail": "听读 5 个旧词，忘了就点播放。"
+        },
+        {
+          "minutes": 7,
+          "label": "今日词句",
+          "detail": "听读 5 个新词或短语。"
+        },
+        {
+          "minutes": 8,
+          "label": "跟读句子",
+          "detail": "跟读 3 个短句。"
+        },
+        {
+          "minutes": 5,
+          "label": "小练习",
+          "detail": "完成 2-3 道基础题。"
+        },
+        {
+          "minutes": 2,
+          "label": "自己打卡",
+          "detail": "网页点完成，纸上打勾。"
+        }
+      ],
+      "days": [
+        {
+          "id": "day-01",
+          "day": 1,
+          "title": "周末活动和旅行",
+          "goal": "能听懂并读出几个过去做过的活动。",
+          "fallback": "听读 3 个词和 1 个句子，也算完成。",
+          "review": [],
+          "terms": [
+            {
+              "english": "meet up",
+              "chinese": "碰头；相聚",
+              "audio": "audio/unit7/day-01/term-01-meet-up.mp3"
+            },
+            {
+              "english": "museum",
+              "chinese": "博物馆",
+              "audio": "audio/unit7/day-01/term-02-museum.mp3"
+            },
+            {
+              "english": "exhibition",
+              "chinese": "展览",
+              "audio": "audio/unit7/day-01/term-03-exhibition.mp3"
+            },
+            {
+              "english": "direction",
+              "chinese": "方向",
+              "audio": "audio/unit7/day-01/term-04-direction.mp3"
+            },
+            {
+              "english": "trip",
+              "chinese": "旅行",
+              "audio": "audio/unit7/day-01/term-05-trip.mp3"
+            }
+          ],
+          "sentences": [
+            {
+              "english": "How was your weekend?",
+              "chinese": "你的周末怎么样？",
+              "audio": "audio/unit7/day-01/sentence-01-how-was-your-weekend.mp3"
+            },
+            {
+              "english": "I visited a science museum.",
+              "chinese": "我参观了科学博物馆。",
+              "audio": "audio/unit7/day-01/sentence-02-i-visited-a-science-museum.mp3"
+            },
+            {
+              "english": "I met up with friends.",
+              "chinese": "我和朋友见面了。",
+              "audio": "audio/unit7/day-01/sentence-03-i-met-up-with-friends.mp3"
+            }
+          ],
+          "quiz": [
+            {
+              "prompt": "museum 的意思是：",
+              "choices": [
+                "博物馆",
+                "剧院",
+                "农场"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "meet up 的意思是：",
+              "choices": [
+                "写下",
+                "碰头；相聚",
+                "走开"
+              ],
+              "answer": 1
+            },
+            {
+              "prompt": "I visited a science museum. 的意思是：",
+              "choices": [
+                "我参观了科学博物馆。",
+                "我去了动物园。",
+                "我做了作业。"
+              ],
+              "answer": 0
+            }
+          ]
+        },
+        {
+          "id": "day-02",
+          "day": 2,
+          "title": "污水处理厂",
+          "goal": "认识 wastewater plant 相关词，能理解课本对话大意。",
+          "fallback": "听读 3 个词和 1 个句子，也算完成。",
+          "review": [
+            "meet up",
+            "museum",
+            "exhibition",
+            "direction",
+            "trip"
+          ],
+          "terms": [
+            {
+              "english": "wastewater",
+              "chinese": "废水",
+              "audio": "audio/unit7/day-02/term-01-wastewater.mp3"
+            },
+            {
+              "english": "plant",
+              "chinese": "工厂",
+              "audio": "audio/unit7/day-02/term-02-plant.mp3"
+            },
+            {
+              "english": "into",
+              "chinese": "到……里面；进入",
+              "audio": "audio/unit7/day-02/term-03-into.mp3"
+            },
+            {
+              "english": "screen",
+              "chinese": "滤网；隔板；屏障",
+              "audio": "audio/unit7/day-02/term-04-screen.mp3"
+            },
+            {
+              "english": "remove",
+              "chinese": "移开；拿走",
+              "audio": "audio/unit7/day-02/term-05-remove.mp3"
+            }
+          ],
+          "sentences": [
+            {
+              "english": "We went to a wastewater plant.",
+              "chinese": "我们去了一个污水处理厂。",
+              "audio": "audio/unit7/day-02/sentence-01-we-went-to-a-wastewater-plant.mp3"
+            },
+            {
+              "english": "Dirty water goes into the plant.",
+              "chinese": "脏水进入工厂。",
+              "audio": "audio/unit7/day-02/sentence-02-dirty-water-goes-into-the-plant.mp3"
+            },
+            {
+              "english": "Screens remove large pieces of waste.",
+              "chinese": "滤网去除大块废弃物。",
+              "audio": "audio/unit7/day-02/sentence-03-screens-remove-large-pieces-of-waste.mp3"
+            }
+          ],
+          "quiz": [
+            {
+              "prompt": "wastewater 的意思是：",
+              "choices": [
+                "新鲜水",
+                "废水",
+                "热水"
+              ],
+              "answer": 1
+            },
+            {
+              "prompt": "remove 的意思是：",
+              "choices": [
+                "移开；拿走",
+                "记录",
+                "同意"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "Dirty water goes into the plant. 的意思是：",
+              "choices": [
+                "脏水进入工厂。",
+                "工厂很干净。",
+                "我们去了农场。"
+              ],
+              "answer": 0
+            }
+          ]
+        },
+        {
+          "id": "day-03",
+          "day": 3,
+          "title": "清洁过程",
+          "goal": "理解污水变干净的几个基础词。",
+          "fallback": "听读 3 个词和 1 个句子，也算完成。",
+          "review": [
+            "wastewater",
+            "plant",
+            "screen",
+            "remove",
+            "trip"
+          ],
+          "terms": [
+            {
+              "english": "piece",
+              "chinese": "片；块",
+              "audio": "audio/unit7/day-03/term-01-piece.mp3"
+            },
+            {
+              "english": "waste",
+              "chinese": "废弃物；浪费",
+              "audio": "audio/unit7/day-03/term-02-waste.mp3"
+            },
+            {
+              "english": "machine",
+              "chinese": "机器",
+              "audio": "audio/unit7/day-03/term-03-machine.mp3"
+            },
+            {
+              "english": "germ",
+              "chinese": "微生物；细菌",
+              "audio": "audio/unit7/day-03/term-04-germ.mp3"
+            },
+            {
+              "english": "step",
+              "chinese": "步骤；脚步",
+              "audio": "audio/unit7/day-03/term-05-step.mp3"
+            }
+          ],
+          "sentences": [
+            {
+              "english": "Machines remove germs from the water.",
+              "chinese": "机器从水中去除细菌。",
+              "audio": "audio/unit7/day-03/sentence-01-machines-remove-germs-from-the-water.mp3"
+            },
+            {
+              "english": "It takes a few more steps.",
+              "chinese": "这还需要更多几个步骤。",
+              "audio": "audio/unit7/day-03/sentence-02-it-takes-a-few-more-steps.mp3"
+            },
+            {
+              "english": "The water becomes clean again.",
+              "chinese": "水又变干净了。",
+              "audio": "audio/unit7/day-03/sentence-03-the-water-becomes-clean-again.mp3"
+            }
+          ],
+          "quiz": [
+            {
+              "prompt": "machine 的意思是：",
+              "choices": [
+                "机器",
+                "篮子",
+                "黄瓜"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "germ 的意思是：",
+              "choices": [
+                "演员",
+                "细菌",
+                "道路"
+              ],
+              "answer": 1
+            },
+            {
+              "prompt": "step 的意思是：",
+              "choices": [
+                "步骤；脚步",
+                "帐篷",
+                "想法"
+              ],
+              "answer": 0
+            }
+          ]
+        },
+        {
+          "id": "day-04",
+          "day": 4,
+          "title": "过程和想法",
+          "goal": "会读对话里的过程词和表达过去想法的句子。",
+          "fallback": "听读 3 个词和 1 个句子，也算完成。",
+          "review": [
+            "piece",
+            "waste",
+            "machine",
+            "germ",
+            "step"
+          ],
+          "terms": [
+            {
+              "english": "used to",
+              "chinese": "过去常常",
+              "audio": "audio/unit7/day-04/term-01-used-to.mp3"
+            },
+            {
+              "english": "realize",
+              "chinese": "认识到；实现",
+              "audio": "audio/unit7/day-04/term-02-realize.mp3"
+            },
+            {
+              "english": "inside",
+              "chinese": "在……里面；在里面",
+              "audio": "audio/unit7/day-04/term-03-inside.mp3"
+            },
+            {
+              "english": "go on a trip",
+              "chinese": "去旅行",
+              "audio": "audio/unit7/day-04/term-04-go-on-a-trip.mp3"
+            },
+            {
+              "english": "process",
+              "chinese": "过程",
+              "audio": "audio/unit7/day-04/term-05-process.mp3"
+            }
+          ],
+          "sentences": [
+            {
+              "english": "I used to think it was easy.",
+              "chinese": "我过去以为这很容易。",
+              "audio": "audio/unit7/day-04/sentence-01-i-used-to-think-it-was-easy.mp3"
+            },
+            {
+              "english": "I didn't realize it was so hard.",
+              "chinese": "我没有意识到它这么难。",
+              "audio": "audio/unit7/day-04/sentence-02-i-didn-t-realize-it-was-so-hard.mp3"
+            },
+            {
+              "english": "We learnt about the cleaning process.",
+              "chinese": "我们了解了清洁过程。",
+              "audio": "audio/unit7/day-04/sentence-03-we-learnt-about-the-cleaning-process.mp3"
+            }
+          ],
+          "quiz": [
+            {
+              "prompt": "used to 的意思是：",
+              "choices": [
+                "过去常常",
+                "现在正在",
+                "马上要"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "process 的意思是：",
+              "choices": [
+                "过程",
+                "剧院",
+                "叶子"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "I didn't realize it was so hard. 的意思是：",
+              "choices": [
+                "我没有意识到它这么难。",
+                "我觉得它很简单。",
+                "我今天去旅行。"
+              ],
+              "answer": 0
+            }
+          ]
+        },
+        {
+          "id": "day-05",
+          "day": 5,
+          "title": "地点和感受",
+          "goal": "认识学校旅行常见地点和感受词。",
+          "fallback": "听读 3 个词和 1 个句子，也算完成。",
+          "review": [
+            "used to",
+            "realize",
+            "inside",
+            "go on a trip",
+            "process"
+          ],
+          "terms": [
+            {
+              "english": "theatre",
+              "chinese": "戏院；剧场；电影院",
+              "audio": "audio/unit7/day-05/term-01-theatre.mp3"
+            },
+            {
+              "english": "factory",
+              "chinese": "工厂",
+              "audio": "audio/unit7/day-05/term-02-factory.mp3"
+            },
+            {
+              "english": "terrible",
+              "chinese": "糟糕的",
+              "audio": "audio/unit7/day-05/term-03-terrible.mp3"
+            },
+            {
+              "english": "actor",
+              "chinese": "演员",
+              "audio": "audio/unit7/day-05/term-04-actor.mp3"
+            },
+            {
+              "english": "gun",
+              "chinese": "枪",
+              "audio": "audio/unit7/day-05/term-05-gun.mp3"
+            }
+          ],
+          "sentences": [
+            {
+              "english": "We went to the theatre to watch a show.",
+              "chinese": "我们去了剧院看演出。",
+              "audio": "audio/unit7/day-05/sentence-01-we-went-to-the-theatre-to-watch-a-show.mp3"
+            },
+            {
+              "english": "It was terrible.",
+              "chinese": "太糟糕了。",
+              "audio": "audio/unit7/day-05/sentence-02-it-was-terrible.mp3"
+            },
+            {
+              "english": "I saw my favourite actor in a film.",
+              "chinese": "我在电影里看到了我最喜欢的演员。",
+              "audio": "audio/unit7/day-05/sentence-03-i-saw-my-favourite-actor-in-a-film.mp3"
+            }
+          ],
+          "quiz": [
+            {
+              "prompt": "theatre 的意思是：",
+              "choices": [
+                "剧院",
+                "农场",
+                "步骤"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "terrible 的意思是：",
+              "choices": [
+                "糟糕的",
+                "新鲜的",
+                "直接的"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "actor 的意思是：",
+              "choices": [
+                "游客",
+                "演员",
+                "猎人"
+              ],
+              "answer": 1
+            }
+          ]
+        },
+        {
+          "id": "day-06",
+          "day": 6,
+          "title": "路上发生的事",
+          "goal": "会读路、试穿、记录等常用表达。",
+          "fallback": "听读 3 个词和 1 个句子，也算完成。",
+          "review": [
+            "theatre",
+            "factory",
+            "terrible",
+            "actor",
+            "gun"
+          ],
+          "terms": [
+            {
+              "english": "try on",
+              "chinese": "试穿",
+              "audio": "audio/unit7/day-06/term-01-try-on.mp3"
+            },
+            {
+              "english": "along",
+              "chinese": "沿着；顺着",
+              "audio": "audio/unit7/day-06/term-02-along.mp3"
+            },
+            {
+              "english": "road",
+              "chinese": "道路",
+              "audio": "audio/unit7/day-06/term-03-road.mp3"
+            },
+            {
+              "english": "create",
+              "chinese": "创造",
+              "audio": "audio/unit7/day-06/term-04-create.mp3"
+            },
+            {
+              "english": "record",
+              "chinese": "记录；记录本",
+              "audio": "audio/unit7/day-06/term-05-record.mp3"
+            }
+          ],
+          "sentences": [
+            {
+              "english": "We walked along the mountain roads.",
+              "chinese": "我们沿着山路走。",
+              "audio": "audio/unit7/day-06/sentence-01-we-walked-along-the-mountain-roads.mp3"
+            },
+            {
+              "english": "We tried on some uniforms from the past.",
+              "chinese": "我们试穿了一些过去的制服。",
+              "audio": "audio/unit7/day-06/sentence-02-we-tried-on-some-uniforms-from-the-past.mp3"
+            },
+            {
+              "english": "I like to record my thoughts.",
+              "chinese": "我喜欢记录我的想法。",
+              "audio": "audio/unit7/day-06/sentence-03-i-like-to-record-my-thoughts.mp3"
+            }
+          ],
+          "quiz": [
+            {
+              "prompt": "along 的意思是：",
+              "choices": [
+                "沿着；顺着",
+                "进入",
+                "终于"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "try on 的意思是：",
+              "choices": [
+                "试穿",
+                "写下",
+                "赚钱"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "record 可以表示：",
+              "choices": [
+                "记录",
+                "分支",
+                "谷物"
+              ],
+              "answer": 0
+            }
+          ]
+        },
+        {
+          "id": "day-07",
+          "day": 7,
+          "title": "日记和想法",
+          "goal": "认识日记阅读中的核心词。",
+          "fallback": "听读 3 个词和 1 个句子，也算完成。",
+          "review": [
+            "try on",
+            "along",
+            "road",
+            "create",
+            "record"
+          ],
+          "terms": [
+            {
+              "english": "thought",
+              "chinese": "想法",
+              "audio": "audio/unit7/day-07/term-01-thought.mp3"
+            },
+            {
+              "english": "skill",
+              "chinese": "技能",
+              "audio": "audio/unit7/day-07/term-02-skill.mp3"
+            },
+            {
+              "english": "write down",
+              "chinese": "写下；记下",
+              "audio": "audio/unit7/day-07/term-03-write-down.mp3"
+            },
+            {
+              "english": "explore",
+              "chinese": "探索",
+              "audio": "audio/unit7/day-07/term-04-explore.mp3"
+            },
+            {
+              "english": "tent",
+              "chinese": "帐篷",
+              "audio": "audio/unit7/day-07/term-05-tent.mp3"
+            }
+          ],
+          "sentences": [
+            {
+              "english": "Do you keep a diary?",
+              "chinese": "你写日记吗？",
+              "audio": "audio/unit7/day-07/sentence-01-do-you-keep-a-diary.mp3"
+            },
+            {
+              "english": "A diary can record thoughts and feelings.",
+              "chinese": "日记可以记录想法和感受。",
+              "audio": "audio/unit7/day-07/sentence-02-a-diary-can-record-thoughts-and-feelings.mp3"
+            },
+            {
+              "english": "In the morning, we explored the farm.",
+              "chinese": "上午，我们探索了农场。",
+              "audio": "audio/unit7/day-07/sentence-03-in-the-morning-we-explored-the-farm.mp3"
+            }
+          ],
+          "quiz": [
+            {
+              "prompt": "thought 的意思是：",
+              "choices": [
+                "想法",
+                "方向",
+                "篮子"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "write down 的意思是：",
+              "choices": [
+                "写下；记下",
+                "同意",
+                "逃脱"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "explore 的意思是：",
+              "choices": [
+                "探索",
+                "移开",
+                "倾倒"
+              ],
+              "answer": 0
+            }
+          ]
+        },
+        {
+          "id": "day-08",
+          "day": 8,
+          "title": "农场劳动",
+          "goal": "会读农场和劳动相关词。",
+          "fallback": "听读 3 个词和 1 个句子，也算完成。",
+          "review": [
+            "thought",
+            "skill",
+            "write down",
+            "explore",
+            "tent"
+          ],
+          "terms": [
+            {
+              "english": "cucumber",
+              "chinese": "黄瓜",
+              "audio": "audio/unit7/day-08/term-01-cucumber.mp3"
+            },
+            {
+              "english": "from ... to ...",
+              "chinese": "从……到……",
+              "audio": "audio/unit7/day-08/term-02-from-to.mp3"
+            },
+            {
+              "english": "straight",
+              "chinese": "直接；立即；笔直地；直的",
+              "audio": "audio/unit7/day-08/term-03-straight.mp3"
+            },
+            {
+              "english": "fill",
+              "chinese": "装满；盛满",
+              "audio": "audio/unit7/day-08/term-04-fill.mp3"
+            },
+            {
+              "english": "basket",
+              "chinese": "篮子；筐",
+              "audio": "audio/unit7/day-08/term-05-basket.mp3"
+            }
+          ],
+          "sentences": [
+            {
+              "english": "There were tomatoes, cucumbers, and many other vegetables.",
+              "chinese": "那里有西红柿、黄瓜和许多其他蔬菜。",
+              "audio": "audio/unit7/day-08/sentence-01-there-were-tomatoes-cucumbers-and-many-other-vegetables.mp3"
+            },
+            {
+              "english": "These vegetables go from the fields to our tables.",
+              "chinese": "这些蔬菜从田地到我们的餐桌。",
+              "audio": "audio/unit7/day-08/sentence-02-these-vegetables-go-from-the-fields-to-our-tables.mp3"
+            },
+            {
+              "english": "Slowly, we filled many baskets.",
+              "chinese": "慢慢地，我们装满了许多篮子。",
+              "audio": "audio/unit7/day-08/sentence-03-slowly-we-filled-many-baskets.mp3"
+            }
+          ],
+          "quiz": [
+            {
+              "prompt": "cucumber 的意思是：",
+              "choices": [
+                "黄瓜",
+                "草莓",
+                "谷物"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "basket 的意思是：",
+              "choices": [
+                "篮子",
+                "道路",
+                "细菌"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "from ... to ... 的意思是：",
+              "choices": [
+                "从……到……",
+                "过去常常",
+                "同意"
+              ],
+              "answer": 0
+            }
+          ]
+        },
+        {
+          "id": "day-09",
+          "day": 9,
+          "title": "植物和动作",
+          "goal": "理解农场日记中的植物和动作词。",
+          "fallback": "听读 3 个词和 1 个句子，也算完成。",
+          "review": [
+            "cucumber",
+            "from ... to ...",
+            "straight",
+            "fill",
+            "basket"
+          ],
+          "terms": [
+            {
+              "english": "teach, taught",
+              "chinese": "教",
+              "audio": "audio/unit7/day-09/term-01-teach-taught.mp3"
+            },
+            {
+              "english": "branch",
+              "chinese": "分支；树枝",
+              "audio": "audio/unit7/day-09/term-02-branch.mp3"
+            },
+            {
+              "english": "leaf, leaves",
+              "chinese": "叶；叶子",
+              "audio": "audio/unit7/day-09/term-03-leaf-leaves.mp3"
+            },
+            {
+              "english": "finally",
+              "chinese": "终于",
+              "audio": "audio/unit7/day-09/term-04-finally.mp3"
+            },
+            {
+              "english": "think of",
+              "chinese": "考虑；想起",
+              "audio": "audio/unit7/day-09/term-05-think-of.mp3"
+            }
+          ],
+          "sentences": [
+            {
+              "english": "The farmer taught us how to cut branches.",
+              "chinese": "农民教我们如何剪枝。",
+              "audio": "audio/unit7/day-09/sentence-01-the-farmer-taught-us-how-to-cut-branches.mp3"
+            },
+            {
+              "english": "Finally, we watered the plants.",
+              "chinese": "最后，我们给植物浇水。",
+              "audio": "audio/unit7/day-09/sentence-02-finally-we-watered-the-plants.mp3"
+            },
+            {
+              "english": "It made me think of hard work.",
+              "chinese": "这让我想到了辛苦劳动。",
+              "audio": "audio/unit7/day-09/sentence-03-it-made-me-think-of-hard-work.mp3"
+            }
+          ],
+          "quiz": [
+            {
+              "prompt": "teach 的过去式是：",
+              "choices": [
+                "teached",
+                "taught",
+                "teach"
+              ],
+              "answer": 1
+            },
+            {
+              "prompt": "leaf 的复数是：",
+              "choices": [
+                "leafs",
+                "leaves",
+                "leafes"
+              ],
+              "answer": 1
+            },
+            {
+              "prompt": "finally 的意思是：",
+              "choices": [
+                "终于",
+                "直接",
+                "肯定"
+              ],
+              "answer": 0
+            }
+          ]
+        },
+        {
+          "id": "day-10",
+          "day": 10,
+          "title": "食物和日记",
+          "goal": "会读日记结尾中的食物和评价词。",
+          "fallback": "听读 3 个词和 1 个句子，也算完成。",
+          "review": [
+            "teach, taught",
+            "branch",
+            "leaf, leaves",
+            "finally",
+            "think of"
+          ],
+          "terms": [
+            {
+              "english": "grain",
+              "chinese": "谷物；谷粒",
+              "audio": "audio/unit7/day-10/term-01-grain.mp3"
+            },
+            {
+              "english": "fresh",
+              "chinese": "新鲜的",
+              "audio": "audio/unit7/day-10/term-02-fresh.mp3"
+            },
+            {
+              "english": "certainly",
+              "chinese": "肯定；当然",
+              "audio": "audio/unit7/day-10/term-03-certainly.mp3"
+            },
+            {
+              "english": "diary",
+              "chinese": "日记；日记本",
+              "audio": "audio/unit7/day-10/term-04-diary.mp3"
+            },
+            {
+              "english": "entry",
+              "chinese": "日记的一则；入口",
+              "audio": "audio/unit7/day-10/term-05-entry.mp3"
+            }
+          ],
+          "sentences": [
+            {
+              "english": "Every grain comes from hard work.",
+              "chinese": "粒粒皆辛苦。",
+              "audio": "audio/unit7/day-10/sentence-01-every-grain-comes-from-hard-work.mp3"
+            },
+            {
+              "english": "They were fresh and delicious.",
+              "chinese": "它们新鲜又美味。",
+              "audio": "audio/unit7/day-10/sentence-02-they-were-fresh-and-delicious.mp3"
+            },
+            {
+              "english": "Sam wrote a diary entry.",
+              "chinese": "Sam 写了一则日记。",
+              "audio": "audio/unit7/day-10/sentence-03-sam-wrote-a-diary-entry.mp3"
+            }
+          ],
+          "quiz": [
+            {
+              "prompt": "fresh 的意思是：",
+              "choices": [
+                "新鲜的",
+                "糟糕的",
+                "笔直的"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "diary 的意思是：",
+              "choices": [
+                "日记",
+                "展览",
+                "过程"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "Every grain comes from hard work. 大意是：",
+              "choices": [
+                "粒粒皆辛苦。",
+                "天气很好。",
+                "我喜欢博物馆。"
+              ],
+              "answer": 0
+            }
+          ]
+        },
+        {
+          "id": "day-11",
+          "day": 11,
+          "title": "表达同意和总结",
+          "goal": "会读 agree 相关表达，并能说出旅行感受。",
+          "fallback": "听读 3 个词和 1 个句子，也算完成。",
+          "review": [
+            "grain",
+            "fresh",
+            "certainly",
+            "diary",
+            "entry"
+          ],
+          "terms": [
+            {
+              "english": "agree",
+              "chinese": "赞成；同意",
+              "audio": "audio/unit7/day-11/term-01-agree.mp3"
+            },
+            {
+              "english": "agree with",
+              "chinese": "赞成；同意",
+              "audio": "audio/unit7/day-11/term-02-agree-with.mp3"
+            },
+            {
+              "english": "school trip",
+              "chinese": "学校旅行",
+              "audio": "audio/unit7/day-11/term-03-school-trip.mp3"
+            },
+            {
+              "english": "a day to remember",
+              "chinese": "难忘的一天",
+              "audio": "audio/unit7/day-11/term-04-a-day-to-remember.mp3"
+            },
+            {
+              "english": "learnt a lot",
+              "chinese": "学到了很多",
+              "audio": "audio/unit7/day-11/term-05-learnt-a-lot.mp3"
+            }
+          ],
+          "sentences": [
+            {
+              "english": "Do you agree with Sam?",
+              "chinese": "你同意 Sam 的看法吗？",
+              "audio": "audio/unit7/day-11/sentence-01-do-you-agree-with-sam.mp3"
+            },
+            {
+              "english": "I learnt a lot from the trip.",
+              "chinese": "我从这次旅行中学到了很多。",
+              "audio": "audio/unit7/day-11/sentence-02-i-learnt-a-lot-from-the-trip.mp3"
+            },
+            {
+              "english": "Today was really a day to remember.",
+              "chinese": "今天真是难忘的一天。",
+              "audio": "audio/unit7/day-11/sentence-03-today-was-really-a-day-to-remember.mp3"
+            }
+          ],
+          "quiz": [
+            {
+              "prompt": "agree with 的意思是：",
+              "choices": [
+                "同意",
+                "探索",
+                "移开"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "school trip 的意思是：",
+              "choices": [
+                "学校旅行",
+                "科学展览",
+                "英语课"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "a day to remember 的意思是：",
+              "choices": [
+                "难忘的一天",
+                "普通的一天",
+                "糟糕的一天"
+              ],
+              "answer": 0
+            }
+          ]
+        },
+        {
+          "id": "day-12",
+          "day": 12,
+          "title": "一般过去时问答",
+          "goal": "复习 How was, What did, Did you 这三个高频句型。",
+          "fallback": "听读 2 个问句和 1 个回答，也算完成。",
+          "review": [
+            "agree",
+            "agree with",
+            "school trip",
+            "a day to remember",
+            "learnt a lot"
+          ],
+          "terms": [
+            {
+              "english": "went",
+              "chinese": "go 的过去式；去了",
+              "audio": "audio/unit7/day-12/term-01-went.mp3"
+            },
+            {
+              "english": "did",
+              "chinese": "do 的过去式；做了",
+              "audio": "audio/unit7/day-12/term-02-did.mp3"
+            },
+            {
+              "english": "visited",
+              "chinese": "参观了",
+              "audio": "audio/unit7/day-12/term-03-visited.mp3"
+            },
+            {
+              "english": "met",
+              "chinese": "meet 的过去式；遇见",
+              "audio": "audio/unit7/day-12/term-04-met.mp3"
+            },
+            {
+              "english": "saw",
+              "chinese": "see 的过去式；看见",
+              "audio": "audio/unit7/day-12/term-05-saw.mp3"
+            }
+          ],
+          "sentences": [
+            {
+              "english": "How was your school trip?",
+              "chinese": "你的学校旅行怎么样？",
+              "audio": "audio/unit7/day-12/sentence-01-how-was-your-school-trip.mp3"
+            },
+            {
+              "english": "What did you do?",
+              "chinese": "你做了什么？",
+              "audio": "audio/unit7/day-12/sentence-02-what-did-you-do.mp3"
+            },
+            {
+              "english": "Did you see anything interesting?",
+              "chinese": "你看到什么有趣的东西了吗？",
+              "audio": "audio/unit7/day-12/sentence-03-did-you-see-anything-interesting.mp3"
+            }
+          ],
+          "quiz": [
+            {
+              "prompt": "go 的过去式是：",
+              "choices": [
+                "goed",
+                "went",
+                "goes"
+              ],
+              "answer": 1
+            },
+            {
+              "prompt": "How was your school trip? 的合适回答是：",
+              "choices": [
+                "It was great.",
+                "I am fine.",
+                "Yes, I do."
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "Did you see anything interesting? 的回答可以是：",
+              "choices": [
+                "Yes, I did.",
+                "Yes, I am.",
+                "Yes, I can."
+              ],
+              "answer": 0
+            }
+          ]
+        },
+        {
+          "id": "day-13",
+          "day": 13,
+          "title": "日记短句复盘",
+          "goal": "用短句复习课本日记：去了哪里、做了什么、感觉如何。",
+          "fallback": "听读 3 个短语和 1 个句子，也算完成。",
+          "review": [
+            "went",
+            "did",
+            "visited",
+            "met",
+            "saw"
+          ],
+          "terms": [
+            {
+              "english": "explored the farm",
+              "chinese": "探索农场",
+              "audio": "audio/unit7/day-13/term-01-explored-the-farm.mp3"
+            },
+            {
+              "english": "picked strawberries",
+              "chinese": "摘草莓",
+              "audio": "audio/unit7/day-13/term-02-picked-strawberries.mp3"
+            },
+            {
+              "english": "watered the plants",
+              "chinese": "给植物浇水",
+              "audio": "audio/unit7/day-13/term-03-watered-the-plants.mp3"
+            },
+            {
+              "english": "enjoyed working",
+              "chinese": "喜欢劳动",
+              "audio": "audio/unit7/day-13/term-04-enjoyed-working.mp3"
+            },
+            {
+              "english": "cooked dinner",
+              "chinese": "做晚饭",
+              "audio": "audio/unit7/day-13/term-05-cooked-dinner.mp3"
+            }
+          ],
+          "sentences": [
+            {
+              "english": "Today we went on a school trip to a farm.",
+              "chinese": "今天我们去农场进行了学校旅行。",
+              "audio": "audio/unit7/day-13/sentence-01-today-we-went-on-a-school-trip-to-a-farm.mp3"
+            },
+            {
+              "english": "It was tiring, but I enjoyed working with my hands.",
+              "chinese": "这很累，但我喜欢动手劳动。",
+              "audio": "audio/unit7/day-13/sentence-02-it-was-tiring-but-i-enjoyed-working-with-my-hands.mp3"
+            },
+            {
+              "english": "My mum cooked some vegetables for dinner.",
+              "chinese": "我妈妈做了一些蔬菜当晚餐。",
+              "audio": "audio/unit7/day-13/sentence-03-my-mum-cooked-some-vegetables-for-dinner.mp3"
+            }
+          ],
+          "quiz": [
+            {
+              "prompt": "picked strawberries 的意思是：",
+              "choices": [
+                "摘草莓",
+                "买草莓",
+                "洗草莓"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "watered the plants 的意思是：",
+              "choices": [
+                "给植物浇水",
+                "剪树枝",
+                "摘叶子"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "Today we went on a school trip to a farm. 的大意是：",
+              "choices": [
+                "今天我们去农场进行了学校旅行。",
+                "今天我们去了剧院。",
+                "今天我们去了博物馆。"
+              ],
+              "answer": 0
+            }
+          ]
+        },
+        {
+          "id": "day-14",
+          "day": 14,
+          "title": "轻测试和总结",
+          "goal": "轻松复盘 Unit 7，看看哪些词句已经熟了。",
+          "fallback": "听读 5 个复习词和 1 个句子，也算完成。",
+          "review": [
+            "explored the farm",
+            "picked strawberries",
+            "watered the plants",
+            "enjoyed working",
+            "cooked dinner"
+          ],
+          "terms": [
+            {
+              "english": "wastewater plant",
+              "chinese": "污水处理厂",
+              "audio": "audio/unit7/day-14/term-01-wastewater-plant.mp3"
+            },
+            {
+              "english": "cleaning process",
+              "chinese": "清洁过程",
+              "audio": "audio/unit7/day-14/term-02-cleaning-process.mp3"
+            },
+            {
+              "english": "diary entry",
+              "chinese": "日记",
+              "audio": "audio/unit7/day-14/term-03-diary-entry.mp3"
+            },
+            {
+              "english": "tiring but fun",
+              "chinese": "很累但有趣",
+              "audio": "audio/unit7/day-14/term-04-tiring-but-fun.mp3"
+            },
+            {
+              "english": "fresh and delicious",
+              "chinese": "新鲜又美味",
+              "audio": "audio/unit7/day-14/term-05-fresh-and-delicious.mp3"
+            }
+          ],
+          "sentences": [
+            {
+              "english": "The trip was tiring but fun.",
+              "chinese": "这次旅行很累但有趣。",
+              "audio": "audio/unit7/day-14/sentence-01-the-trip-was-tiring-but-fun.mp3"
+            },
+            {
+              "english": "Farming isn't easy.",
+              "chinese": "农活并不容易。",
+              "audio": "audio/unit7/day-14/sentence-02-farming-isn-t-easy.mp3"
+            },
+            {
+              "english": "It made me want to work hard for a better future.",
+              "chinese": "这让我想为更好的未来努力。",
+              "audio": "audio/unit7/day-14/sentence-03-it-made-me-want-to-work-hard-for-a-better-future.mp3"
+            }
+          ],
+          "quiz": [
+            {
+              "prompt": "wastewater plant 的意思是：",
+              "choices": [
+                "污水处理厂",
+                "动物园",
+                "剧院"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "diary entry 的意思是：",
+              "choices": [
+                "日记",
+                "方向",
+                "机器"
+              ],
+              "answer": 0
+            },
+            {
+              "prompt": "Farming isn't easy. 的意思是：",
+              "choices": [
+                "农活并不容易。",
+                "农场很漂亮。",
+                "我喜欢英语。"
+              ],
+              "answer": 0
+            }
+          ]
+        }
+      ]
+    }
+  }
+};
+
+    </script>
+    <script>
+const state = {
+  manifest: null,
+  unitEntry: null,
+  data: null,
+  activeDayIndex: 0,
+  audio: null,
+  done: new Set(),
+};
+
+const elements = {
+  unitMeta: document.querySelector("#unitMeta"),
+  unitTitle: document.querySelector("#unitTitle"),
+  unitCopy: document.querySelector("#unitCopy"),
+  unitPicker: document.querySelector("#unitPicker"),
+  dayTabs: document.querySelector("#dayTabs"),
+  doneCount: document.querySelector("#doneCount"),
+  progressBar: document.querySelector("#progressBar"),
+  lessonMeta: document.querySelector("#lessonMeta"),
+  lessonTitle: document.querySelector("#lessonTitle"),
+  lessonGoal: document.querySelector("#lessonGoal"),
+  fallbackPanel: document.querySelector("#fallbackPanel"),
+  fallbackButton: document.querySelector("#fallbackButton"),
+  routine: document.querySelector("#routine"),
+  reviewBlock: document.querySelector("#reviewBlock"),
+  reviewList: document.querySelector("#reviewList"),
+  termList: document.querySelector("#termList"),
+  sentenceList: document.querySelector("#sentenceList"),
+  quizList: document.querySelector("#quizList"),
+  completeButton: document.querySelector("#completeButton"),
+  completeNote: document.querySelector("#completeNote"),
+};
+
+function doneKey() {
+  return `englishCheckin.${state.data.id}.doneDays`;
+}
+
+function loadDone() {
+  try {
+    state.done = new Set(JSON.parse(localStorage.getItem(doneKey()) || "[]"));
+  } catch {
+    state.done = new Set();
+  }
+}
+
+function saveDone() {
+  try {
+    localStorage.setItem(doneKey(), JSON.stringify([...state.done]));
+  } catch {
+    // Some file:// browser contexts disable localStorage. The page can still be used.
+  }
+}
+
+function updateProgress() {
+  const total = state.data.days.length;
+  const done = state.done.size;
+  elements.doneCount.textContent = `${done} / ${total}`;
+  elements.progressBar.style.width = `${(done / total) * 100}%`;
+}
+
+function playAudio(path, rate = 1) {
+  if (state.audio) {
+    state.audio.pause();
+  }
+  const prefix = window.ENGLISH_CHECKIN_AUDIO_PREFIX || "";
+  const audioPath = /^https?:|^file:|^\//.test(path) ? path : `${prefix}${path}`;
+  state.audio = new Audio(audioPath);
+  state.audio.playbackRate = rate;
+  state.audio.play().catch(() => {
+    elements.completeNote.textContent = "音频暂时无法播放，请确认已生成 MP3，并通过本地服务器打开页面。";
+  });
+}
+
+function audioMap() {
+  const items = new Map();
+  state.data.days.forEach((day) => {
+    [...day.terms, ...day.sentences].forEach((item) => {
+      if (!items.has(item.english)) {
+        items.set(item.english, item);
+      }
+    });
+  });
+  return items;
+}
+
+function renderUnitPicker() {
+  elements.unitPicker.innerHTML = "";
+  state.manifest.units.forEach((unit) => {
+    const option = document.createElement("option");
+    option.value = unit.id;
+    option.textContent = `${unit.label} · ${unit.title}`;
+    option.selected = unit.id === state.unitEntry.id;
+    elements.unitPicker.appendChild(option);
+  });
+  elements.unitPicker.onchange = () => loadUnit(elements.unitPicker.value);
+}
+
+function renderTabs() {
+  elements.dayTabs.innerHTML = "";
+  state.data.days.forEach((day, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "day-tab";
+    button.textContent = `Day ${day.day}`;
+    if (index === state.activeDayIndex) button.classList.add("active");
+    if (state.done.has(day.id)) button.classList.add("done");
+    button.addEventListener("click", () => {
+      state.activeDayIndex = index;
+      render();
+    });
+    elements.dayTabs.appendChild(button);
+  });
+}
+
+function renderRoutine() {
+  elements.routine.innerHTML = "";
+  state.data.routine.forEach((step) => {
+    const item = document.createElement("div");
+    item.className = "routine-step";
+    item.innerHTML = `<strong>${step.minutes} 分钟 · ${step.label}</strong><span>${step.detail}</span>`;
+    elements.routine.appendChild(item);
+  });
+}
+
+function renderReview(day) {
+  elements.reviewList.innerHTML = "";
+  elements.reviewBlock.hidden = day.review.length === 0;
+  const knownAudio = audioMap();
+  day.review.forEach((word) => {
+    const known = typeof word === "string" ? knownAudio.get(word) : word;
+    const english = typeof word === "string" ? word : word.english;
+    const chinese = known?.chinese || "旧词复习";
+    const audio = known?.audio;
+    const item = document.createElement("button");
+    item.type = "button";
+    item.className = "review-audio";
+    item.innerHTML = `<strong>${english}</strong><span>${chinese}</span>`;
+    item.addEventListener("click", () => {
+      if (audio) {
+        playAudio(audio, 0.9);
+      } else {
+        elements.completeNote.textContent = "这个旧词还没有音频，后续会补齐。";
+      }
+    });
+    elements.reviewList.appendChild(item);
+  });
+}
+
+function renderLearnItems(container, items) {
+  container.innerHTML = "";
+  items.forEach((item) => {
+    const row = document.createElement("div");
+    row.className = "learn-item";
+    row.innerHTML = `
+      <div>
+        <strong>${item.english}</strong>
+        <span>${item.chinese}</span>
+      </div>
+      <button class="audio-button" type="button">播放</button>
+      <button class="audio-button slow" type="button">慢速</button>
+    `;
+    const [normal, slow] = row.querySelectorAll("button");
+    normal.addEventListener("click", () => playAudio(item.audio, 1));
+    slow.addEventListener("click", () => playAudio(item.audio, 0.82));
+    container.appendChild(row);
+  });
+}
+
+function renderQuiz(day) {
+  elements.quizList.innerHTML = "";
+  day.quiz.forEach((quiz, quizIndex) => {
+    const wrap = document.createElement("div");
+    wrap.className = "quiz-item";
+    const prompt = document.createElement("div");
+    prompt.className = "quiz-prompt";
+    prompt.textContent = `${quizIndex + 1}. ${quiz.prompt}`;
+    wrap.appendChild(prompt);
+
+    quiz.choices.forEach((choice, choiceIndex) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "choice";
+      button.textContent = choice;
+      button.addEventListener("click", () => {
+        [...wrap.querySelectorAll(".choice")].forEach((el) => {
+          el.classList.remove("correct", "wrong");
+        });
+        button.classList.add(choiceIndex === quiz.answer ? "correct" : "wrong");
+      });
+      wrap.appendChild(button);
+    });
+    elements.quizList.appendChild(wrap);
+  });
+}
+
+function render() {
+  const day = state.data.days[state.activeDayIndex];
+  elements.unitMeta.textContent = `${state.data.level} · ${state.data.unit}`;
+  elements.unitTitle.textContent = state.data.title;
+  elements.unitCopy.textContent = `每天 ${state.data.dailyMinutes} 分钟：听词、跟读、做小练习，然后自己打卡。`;
+
+  renderUnitPicker();
+  renderTabs();
+  renderRoutine();
+  renderReview(day);
+  renderLearnItems(elements.termList, day.terms);
+  renderLearnItems(elements.sentenceList, day.sentences);
+  renderQuiz(day);
+
+  elements.lessonMeta.textContent = `Day ${day.day} · ${state.data.dailyMinutes} 分钟`;
+  elements.lessonTitle.textContent = day.title;
+  elements.lessonGoal.textContent = day.goal;
+  elements.fallbackPanel.hidden = true;
+  elements.fallbackPanel.innerHTML = "";
+  elements.completeNote.textContent = state.done.has(day.id) ? "今天已经完成，可以在纸上打勾。" : "";
+  elements.fallbackButton.onclick = () => {
+    elements.fallbackPanel.hidden = false;
+    elements.fallbackPanel.innerHTML = `
+      <strong>今天只做保底版也可以</strong>
+      <span>${day.fallback}</span>
+      <button type="button" id="fallbackComplete">按保底版完成</button>
+    `;
+    document.querySelector("#fallbackComplete").onclick = () => {
+      state.done.add(day.id);
+      saveDone();
+      updateProgress();
+      renderTabs();
+      elements.completeNote.textContent = "已按保底版完成，可以在纸上打勾。";
+    };
+  };
+  elements.completeButton.onclick = () => {
+    state.done.add(day.id);
+    saveDone();
+    updateProgress();
+    renderTabs();
+    elements.completeNote.textContent = "今天已经完成，可以在纸上打勾。";
+  };
+  updateProgress();
+}
+
+async function loadUnit(unitId) {
+  const unitEntry = state.manifest.units.find((unit) => unit.id === unitId);
+  state.unitEntry = unitEntry || state.manifest.units[0];
+  if (window.CHECKIN_STATIC?.units?.[state.unitEntry.id]) {
+    state.data = window.CHECKIN_STATIC.units[state.unitEntry.id];
+  } else {
+    const response = await fetch(state.unitEntry.data);
+    state.data = await response.json();
+  }
+  state.activeDayIndex = 0;
+  loadDone();
+  render();
+}
+
+async function init() {
+  if (window.CHECKIN_STATIC?.manifest) {
+    state.manifest = window.CHECKIN_STATIC.manifest;
+  } else {
+    const manifestResponse = await fetch("data/manifest.json");
+    state.manifest = await manifestResponse.json();
+  }
+  const params = new URLSearchParams(window.location.search);
+  const unitId = params.get("unit") || state.manifest.defaultUnit;
+  await loadUnit(unitId);
+}
+
+init().catch(() => {
+  document.body.innerHTML = "<main class='app-shell'><h1>加载失败</h1><p>请确认 English-Checkin.html 是最新版本，且 web/audio 文件夹没有被移动。</p></main>";
+});
+
+    </script>
+  </body>
+</html>

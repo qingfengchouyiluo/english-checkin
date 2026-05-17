@@ -1,0 +1,42 @@
+{
+  "id": "unit-id",
+  "unit": "Unit X",
+  "title": "Unit Title",
+  "level": "Grade 7, Book 2",
+  "duration": "7 days",
+  "dailyMinutes": 25,
+  "voice": {
+    "name": "en-US-JennyNeural",
+    "rate": "-15%"
+  },
+  "routine": [
+    { "minutes": 3, "label": "旧词复习", "detail": "听读昨天 3-5 个词。" },
+    { "minutes": 7, "label": "今日词句", "detail": "听读 5 个词或短语。" },
+    { "minutes": 8, "label": "跟读句子", "detail": "跟读 3 个短句。" },
+    { "minutes": 5, "label": "小练习", "detail": "完成 2-3 道基础题。" },
+    { "minutes": 2, "label": "自己打卡", "detail": "网页点完成，纸上打勾。" }
+  ],
+  "days": [
+    {
+      "id": "day-01",
+      "day": 1,
+      "title": "Day title",
+      "goal": "今日目标。",
+      "fallback": "听读 3 个词和 1 个句子，也算完成。",
+      "review": [],
+      "terms": [
+        { "english": "sample word", "chinese": "示例词" }
+      ],
+      "sentences": [
+        { "english": "This is a sample sentence.", "chinese": "这是一个示例句子。" }
+      ],
+      "quiz": [
+        {
+          "prompt": "示例问题：",
+          "choices": ["选项 A", "选项 B", "选项 C"],
+          "answer": 0
+        }
+      ]
+    }
+  ]
+}

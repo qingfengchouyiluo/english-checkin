@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>张梓萱的英语世界 · Unit 7 打卡表</title>
+    <style>
+      :root {
+        --ink: #24313b;
+        --muted: #687884;
+        --teal: #197c7a;
+        --gold: #f4b942;
+        --line: #cbd9d5;
+        --paper: #fffdf7;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: #efe8d8;
+        font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+      }
+
+      .sheet {
+        position: relative;
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0 auto;
+        overflow: hidden;
+        background:
+          linear-gradient(115deg, rgba(255, 253, 247, 0.96) 0 33%, rgba(231, 246, 241, 0.92) 33% 66%, rgba(255, 244, 219, 0.94) 66%),
+          var(--paper);
+        padding: 12mm;
+      }
+
+      .sheet::after {
+        content: "张梓萱的英语世界";
+        position: absolute;
+        right: -18mm;
+        bottom: 16mm;
+        color: rgba(25, 124, 122, 0.08);
+        font-size: 34pt;
+        font-weight: 900;
+        transform: rotate(-8deg);
+        white-space: nowrap;
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .top {
+        display: grid;
+        grid-template-columns: 1fr 42mm;
+        gap: 8mm;
+        align-items: start;
+        border-bottom: 4px solid var(--teal);
+        padding-bottom: 6mm;
+      }
+
+      .badge {
+        display: inline-block;
+        margin-bottom: 3mm;
+        border: 1px solid rgba(25, 124, 122, 0.25);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.76);
+        color: var(--teal);
+        padding: 2mm 4mm;
+        font-weight: 800;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 24pt;
+        letter-spacing: 0;
+      }
+
+      .subtitle {
+        margin: 3mm 0 0;
+        color: var(--muted);
+        font-size: 10.5pt;
+        line-height: 1.6;
+      }
+
+      .qr {
+        text-align: center;
+      }
+
+      .qr img {
+        width: 36mm;
+        height: 36mm;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: #fff;
+        padding: 2mm;
+      }
+
+      .qr p {
+        margin: 2mm 0 0;
+        color: var(--muted);
+        font-size: 8pt;
+        line-height: 1.4;
+      }
+
+      table {
+        width: 100%;
+        margin-top: 6mm;
+        border-collapse: collapse;
+        font-size: 9pt;
+      }
+
+      th,
+      td {
+        border: 1px solid var(--line);
+        padding: 5px 5px;
+        vertical-align: middle;
+      }
+
+      th {
+        background: #dff3ef;
+        color: #163f3f;
+      }
+
+      td.check {
+        width: 13mm;
+        text-align: center;
+        font-size: 13pt;
+      }
+
+      .note-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5mm;
+        margin-top: 6mm;
+      }
+
+      .note {
+        min-height: 28mm;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 4mm;
+        background: rgba(255, 255, 255, 0.78);
+      }
+
+      .note h2 {
+        margin: 0 0 2mm;
+        font-size: 12pt;
+      }
+
+      .note p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 9.5pt;
+        line-height: 1.55;
+      }
+
+      @media print {
+        body { background: #fff; }
+        .sheet { width: auto; min-height: auto; margin: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="sheet">
+      <div class="content">
+        <section class="top">
+          <div>
+            <span class="badge">张梓萱的英语世界</span>
+            <h1>Unit 7 · A Day to Remember</h1>
+            <p class="subtitle">14 天英语轻量打卡 · 每天 25 分钟<br>完成后由孩子自己在纸上打勾；状态不好时允许做保底版。</p>
+          </div>
+          <div class="qr">
+            <img src="english-checkin-lan-qr.png" alt="English Check-in LAN QR code">
+            <p>局域网验收二维码<br>手机需和电脑同一网络</p>
+          </div>
+        </section>
+
+        <table>
+          <thead>
+            <tr>
+              <th>天数</th>
+              <th>今日重点</th>
+              <th>旧词</th>
+              <th>新词</th>
+              <th>句子</th>
+              <th>练习</th>
+              <th>标准</th>
+              <th>保底</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Day 1</td><td>周末活动和旅行</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td></tr>
+            <tr><td>Day 2</td><td>污水处理厂</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td></tr>
+            <tr><td>Day 3</td><td>清洁过程</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td></tr>
+            <tr><td>Day 4</td><td>过程和想法</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td></tr>
+            <tr><td>Day 5</td><td>地点和感受</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td></tr>
+            <tr><td>Day 6</td><td>路上发生的事</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td></tr>
+            <tr><td>Day 7</td><td>日记和想法</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td></tr>
+            <tr><td>Day 8</td><td>农场劳动</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td></tr>
+            <tr><td>Day 9</td><td>植物和动作</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td></tr>
+            <tr><td>Day 10</td><td>食物和日记</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td></tr>
+            <tr><td>Day 11</td><td>表达同意和总结</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td></tr>
+            <tr><td>Day 12</td><td>一般过去时问答</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td></tr>
+            <tr><td>Day 13</td><td>日记短句复盘</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td></tr>
+            <tr><td>Day 14</td><td>轻测试和总结</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td><td class="check">□</td></tr>
+          </tbody>
+        </table>
+
+        <section class="note-grid">
+          <div class="note">
+            <h2>每天怎么做</h2>
+            <p>扫码打开网页，按顺序完成旧词复习、今日新词、跟读句子和小练习。最后点击“我今天完成了”，再在纸上打勾。</p>
+          </div>
+          <div class="note">
+            <h2>保底版规则</h2>
+            <p>当天很累时，只听读 3 个词、1 个句子，也可以打保底版。关键是不中断。</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

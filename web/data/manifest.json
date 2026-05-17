@@ -1,0 +1,12 @@
+{
+  "defaultUnit": "unit7",
+  "units": [
+    {
+      "id": "unit7",
+      "label": "Unit 7",
+      "title": "A Day to Remember",
+      "status": "ready",
+      "data": "data/units/unit7.json"
+    }
+  ]
+}
