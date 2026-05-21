@@ -4,6 +4,7 @@ const state = {
   data: null,
   activeDayIndex: 0,
   audio: null,
+  celebrationTimer: null,
   done: new Set(),
 };
 
@@ -28,6 +29,7 @@ const elements = {
   quizList: document.querySelector("#quizList"),
   completeButton: document.querySelector("#completeButton"),
   completeNote: document.querySelector("#completeNote"),
+  celebration: document.querySelector("#celebration"),
 };
 
 function doneKey() {
@@ -57,7 +59,85 @@ function updateProgress() {
   elements.progressBar.style.width = `${(done / total) * 100}%`;
 }
 
-function playAudio(path, rate = 1) {
+function setTemporaryClass(element, className, duration = 700) {
+  if (!element) return;
+  element.classList.remove(className);
+  void element.offsetWidth;
+  element.classList.add(className);
+  window.setTimeout(() => element.classList.remove(className), duration);
+}
+
+function markAudioTrigger(trigger, audio) {
+  if (!trigger) return;
+  const targets = [trigger, trigger.closest(".learn-item"), trigger.closest(".review-audio")].filter(Boolean);
+  targets.forEach((target) => target.classList.add("is-playing"));
+  const clear = () => targets.forEach((target) => target.classList.remove("is-playing"));
+  audio.addEventListener("ended", clear, { once: true });
+  audio.addEventListener("error", clear, { once: true });
+  audio.addEventListener("pause", clear, { once: true });
+  window.setTimeout(() => {
+    if (state.audio === audio) clear();
+  }, 4600);
+}
+
+function showCelebration(title, detail) {
+  if (!elements.celebration) return;
+  window.clearTimeout(state.celebrationTimer);
+  elements.celebration.innerHTML = "";
+  elements.celebration.classList.remove("show");
+
+  const card = document.createElement("div");
+  card.className = "celebration-card";
+  const heading = document.createElement("strong");
+  heading.textContent = title;
+  const copy = document.createElement("span");
+  copy.textContent = detail;
+  card.append(heading, copy);
+  elements.celebration.appendChild(card);
+
+  const sparks = [
+    ["-128px", "-78px", "18deg", "10px", "var(--gold)"],
+    ["-92px", "68px", "-28deg", "8px", "var(--rose)"],
+    ["-38px", "-112px", "42deg", "7px", "var(--teal)"],
+    ["34px", "106px", "-18deg", "9px", "var(--gold)"],
+    ["88px", "-82px", "31deg", "8px", "var(--rose)"],
+    ["132px", "52px", "-44deg", "10px", "var(--teal)"],
+    ["0px", "-142px", "10deg", "7px", "var(--gold)"],
+    ["0px", "138px", "-12deg", "8px", "var(--rose)"],
+  ];
+
+  sparks.forEach(([x, y, r, size, color]) => {
+    const spark = document.createElement("span");
+    spark.className = "celebration-spark";
+    spark.style.setProperty("--x", x);
+    spark.style.setProperty("--y", y);
+    spark.style.setProperty("--r", r);
+    spark.style.setProperty("--size", size);
+    spark.style.setProperty("--color", color);
+    elements.celebration.appendChild(spark);
+  });
+
+  elements.celebration.setAttribute("aria-hidden", "false");
+  elements.celebration.classList.add("show");
+  state.celebrationTimer = window.setTimeout(() => {
+    elements.celebration.classList.remove("show");
+    elements.celebration.setAttribute("aria-hidden", "true");
+    elements.celebration.innerHTML = "";
+  }, 1250);
+}
+
+function markComplete(day, message, detail) {
+  state.done.add(day.id);
+  saveDone();
+  updateProgress();
+  renderTabs();
+  elements.completeNote.textContent = message;
+  setTemporaryClass(elements.completeButton, "is-celebrating", 900);
+  setTemporaryClass(elements.progressBar.closest(".progress-track"), "progress-bump", 620);
+  showCelebration("今天完成啦", detail);
+}
+
+function playAudio(path, rate = 1, trigger = null) {
   if (state.audio) {
     state.audio.pause();
   }
@@ -65,7 +145,11 @@ function playAudio(path, rate = 1) {
   const audioPath = /^https?:|^file:|^\//.test(path) ? path : `${prefix}${path}`;
   state.audio = new Audio(audioPath);
   state.audio.playbackRate = rate;
+  markAudioTrigger(trigger, state.audio);
   state.audio.play().catch(() => {
+    trigger?.classList.remove("is-playing");
+    trigger?.closest(".learn-item")?.classList.remove("is-playing");
+    trigger?.closest(".review-audio")?.classList.remove("is-playing");
     elements.completeNote.textContent = "音频暂时无法播放，请确认已生成 MP3，并通过本地服务器打开页面。";
   });
 }
@@ -136,7 +220,7 @@ function renderReview(day) {
     item.innerHTML = `<strong>${english}</strong><span>${chinese}</span>`;
     item.addEventListener("click", () => {
       if (audio) {
-        playAudio(audio, 0.9);
+        playAudio(audio, 0.9, item);
       } else {
         elements.completeNote.textContent = "这个旧词还没有音频，后续会补齐。";
       }
@@ -159,8 +243,8 @@ function renderLearnItems(container, items) {
       <button class="audio-button slow" type="button">慢速</button>
     `;
     const [normal, slow] = row.querySelectorAll("button");
-    normal.addEventListener("click", () => playAudio(item.audio, 1));
-    slow.addEventListener("click", () => playAudio(item.audio, 0.82));
+    normal.addEventListener("click", () => playAudio(item.audio, 1, normal));
+    slow.addEventListener("click", () => playAudio(item.audio, 0.82, slow));
     container.appendChild(row);
   });
 }
@@ -181,10 +265,13 @@ function renderQuiz(day) {
       button.className = "choice";
       button.textContent = choice;
       button.addEventListener("click", () => {
+        wrap.classList.remove("answered-correct", "answered-wrong");
         [...wrap.querySelectorAll(".choice")].forEach((el) => {
           el.classList.remove("correct", "wrong");
         });
-        button.classList.add(choiceIndex === quiz.answer ? "correct" : "wrong");
+        const isCorrect = choiceIndex === quiz.answer;
+        button.classList.add(isCorrect ? "correct" : "wrong");
+        wrap.classList.add(isCorrect ? "answered-correct" : "answered-wrong");
       });
       wrap.appendChild(button);
     });
@@ -220,19 +307,11 @@ function render() {
       <button type="button" id="fallbackComplete">按保底版完成</button>
     `;
     document.querySelector("#fallbackComplete").onclick = () => {
-      state.done.add(day.id);
-      saveDone();
-      updateProgress();
-      renderTabs();
-      elements.completeNote.textContent = "已按保底版完成，可以在纸上打勾。";
+      markComplete(day, "已按保底版完成，可以在纸上打勾。", "保底版也算认真完成。");
     };
   };
   elements.completeButton.onclick = () => {
-    state.done.add(day.id);
-    saveDone();
-    updateProgress();
-    renderTabs();
-    elements.completeNote.textContent = "今天已经完成，可以在纸上打勾。";
+    markComplete(day, "今天已经完成，可以在纸上打勾。", "把今天的小任务收好，明天继续。");
   };
   updateProgress();
 }

@@ -84,6 +84,8 @@ def build_page(css: str, data_script: str, app_script: str) -> str:
       </section>
     </main>
 
+    <div class="celebration" id="celebration" aria-hidden="true" aria-live="polite"></div>
+
     <script>
       window.ENGLISH_CHECKIN_AUDIO_PREFIX = "web/";
 {data_script}
