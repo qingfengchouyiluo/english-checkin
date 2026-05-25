@@ -16,7 +16,7 @@ def build_page(css: str, data_script: str, app_script: str) -> str:
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>English Check-in</title>
-    <link rel="preload" href="assets/premium-study-bg.jpg" as="image">
+    <link rel="preload" href="assets/premium-study-bg-v2.jpg" as="image">
     <style>
 {css}
     </style>
